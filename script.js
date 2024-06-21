@@ -39,35 +39,7 @@ number.forEach(button => {
     });
 });
 
-function getNum() {
-    if (typeof num1 != `number`) {
-        num1 = newArray.join('');
-        num1 = parseFloat(num1);
-        newArray = [];
-        display.innerHTML = '';
-
-    } else if (typeof num1 == `number`) {
-        num2 = newArray.join('');
-        num2 = parseFloat(num2);
-        newArray = [];
-        display.innerHTML = '';
-
-    } else if (typeof num1 == `number` && typeof num2 == `number`) {
-        //nothing
-    }
-}
-
-operation.forEach(operator => {
-    operator.addEventListener("click", () => {
-        getNum();
-        mathOperator = operator.innerHTML;
-    });
-});
-
-
-
-equal.addEventListener("click", () => {
-    getNum();
+function operate() {
     if (mathOperator == '+') {
         add(num1, num2);
         num1 = result;
@@ -88,6 +60,38 @@ equal.addEventListener("click", () => {
         num1 = result;
         num2 = undefined;
     }    
+}
+
+function getNum() {
+    if (typeof num1 != `number`) {
+        num1 = newArray.join('');
+        num1 = parseFloat(num1);
+        newArray = [];
+        display.innerHTML = '';
+
+    } else if (typeof num1 == `number`) {
+        num2 = newArray.join('');
+        num2 = parseFloat(num2);
+        newArray = [];
+        display.innerHTML = '';
+
+    };
+};
+
+operation.forEach(operator => {
+    operator.addEventListener("click", () => {
+        getNum();
+        mathOperator = operator.innerHTML;
+        if (typeof num1 == `number` && typeof num2 == `number`) {
+            display.innerHTML = '';
+            operate();
+        }
+    });
+});
+
+equal.addEventListener("click", () => {
+    getNum();
+    operate();
 });
 
 
