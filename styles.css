@@ -53,6 +53,13 @@ button {
     background-color: #FFB1B1;
 }
 
+.btn-number {
+    background-color: white;
+}
+
+#equal {
+    background-color: rgb(234, 106, 59);
+}
 
 #zero {
     width: 148px;
