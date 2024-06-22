@@ -20,7 +20,7 @@ function getNumber() {
     array = [];
     return num;
 }
-
+let control = null;
 let result = null;
 let array = [];
 let num1 = null;
@@ -35,25 +35,47 @@ const equal = document.querySelector(".equal");
 const allClear = document.querySelector(".AC");
 
 number.forEach(button => {
-    let value = button.innerHTML;    
+    let value = button.innerHTML;
         button.addEventListener("click", () => {
         display.innerHTML += value;
         array.push(value);
+
+        if (result != null && num1 != null) {
+            display.innerHTML = value;
+            mathOperator = null;
+            num1 = null;
+            result = null;
+        }
     })
 });
 
 
 operation.forEach(operator => {
     operator.addEventListener("click", () => {
-        num1 = parseFloat(getNumber());
-        display.innerHTML = operator.innerHTML;
-        mathOperator = operator.innerHTML;
+        if (num1 == null) {
+            num1 = parseFloat(getNumber());
+            display.innerHTML = operator.innerHTML;
+            mathOperator = operator.innerHTML;
+
+        } else {
+            display.innerHTML = operator.innerHTML;
+            mathOperator = operator.innerHTML;
+        }
+        
+        return mathOperator;
     });
 });
 
 
 equal.addEventListener("click", () => {
-    num2 = parseFloat(getNumber());
-    operate(num1, num2);
-    display.innerHTML = result;
+    if (num2 == null) {
+        num2 = parseFloat(getNumber());
+        operate(num1, num2);
+        display.innerHTML = result;
+        control = result + 1;
+
+        num1 = result;
+        num2 = null;
+    };
 });
+
