@@ -18,9 +18,10 @@ function getNumber() {
     let num = array.join('');
     parseInt(num);
     array = [];
-    return num;
+   return num;
 }
-let control = null;
+
+let control = 0;
 let result = null;
 let array = [];
 let num1 = null;
@@ -40,6 +41,14 @@ number.forEach(button => {
         button.addEventListener("click", () => {
             display.textContent += value;
             array.push(value);
+            if (num2 == null && control > 0) {
+                num1 = null;
+                num2 = null;
+                result = null;
+                mathOperator = null;
+                control = 0;
+                display.textContent = '' + `${value}`;
+            }
     });
 });
 
@@ -52,9 +61,12 @@ operation.forEach(operator => {
             display.textContent = operator.innerHTML;
             mathOperator = operator.innerHTML;
 
-        } else {
+        } else if (control > 0) {
+            control = 0;
             display.textContent = operator.innerHTML;
             mathOperator = operator.innerHTML;
+        } else {
+            
         }
 
     });
@@ -71,7 +83,9 @@ equal.addEventListener("click", () => {
         num1 = result;
         num2 = null;
         result = null;
-        control = 'present';
+        control += 1;
+        
+        
     };
 });
 
