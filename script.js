@@ -2,7 +2,7 @@
 function operate(num1, num2) {
     if(mathOperator == '+') {
         result = num1 + num2;
-    
+
     } else if (mathOperator == '-') {
         result = num1 - num2;
     
@@ -35,10 +35,20 @@ const backspace = document.querySelector(".backspace");
 const operation = document.querySelectorAll(".right-buttons");
 const equal = document.querySelector(".equal");
 const allClear = document.querySelector(".AC");
-const plusminus = document.querySelector(".plusminus")
+const plusminus = document.querySelector(".plusminus");
+const decimal = document.querySelector(".decimal");
 
 const span = document.createElement("span");
 const minus = span.textContent = "-";
+
+
+decimal.addEventListener("click", () => {
+    if (!array.includes(".")) {
+        array.push(".")
+        display.textContent += '.'
+    }
+
+})
 
 plusminus.addEventListener("click", () => {
     if (!array.includes("-")) {
@@ -76,7 +86,7 @@ number.forEach(button => {
                 num1 = null;
                 num2 = null;
                 result = null;
-                mathOperator = null;
+
                 control = 0;
                 display.textContent = '' + `${value}`;
             }
@@ -104,26 +114,13 @@ operation.forEach(operator => {
 
             display.textContent = operator.innerHTML;
             mathOperator = operator.innerHTML;
-            display.textContent = result;
-            num1 = result;
-            num2 = null;
-            result = null;
-            control += 1;
 
-        } else if (control > 0 && mathOperator != null) {
-
-            mathOperator = operator.innerHTML;
-            display.textContent = '' + `${value}`;
-            num2 = parseFloat(getNumber());
-            operate(num1, num2);        
-    
             display.textContent = result;
             num1 = result;
             num2 = null;
             result = null;
             control += 1;
         }
-
     });
 });
 
@@ -132,7 +129,7 @@ equal.addEventListener("click", () => {
     if (num2 == null || num1 != null) {
 
         num2 = parseFloat(getNumber());
-        operate(num1, num2);        
+        operate(num1, num2);
 
         mathOperator = null;
         display.textContent = result;
