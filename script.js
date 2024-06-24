@@ -31,10 +31,41 @@ let mathOperator = null;
 
 const display = document.querySelector(".display");
 const number = document.querySelectorAll(".btn-number");
-const clear = document.querySelector(".backspace");
+const backspace = document.querySelector(".backspace");
 const operation = document.querySelectorAll(".right-buttons");
 const equal = document.querySelector(".equal");
 const allClear = document.querySelector(".AC");
+const plusminus = document.querySelector(".plusminus")
+
+const span = document.createElement("span");
+const minus = span.textContent = "-";
+
+plusminus.addEventListener("click", () => {
+    if (!array.includes("-")) {
+        array.unshift(minus);
+        display.prepend(minus);
+
+    } else if (array.includes("-")) {
+        array.shift(minus);
+        display.textContent = display.textContent.slice(1)
+    }
+});
+
+backspace.addEventListener("click", () => {
+    array.pop();
+    display.textContent = display.textContent.slice(0, -1);
+});
+
+allClear.addEventListener("click", () => {
+    array = [];
+    num1 = null;
+    num2 = null;
+    result = null;
+    mathOperator = null;
+    control = 0;
+    display.textContent = '';
+});
+
 
 number.forEach(button => {
     let value = button.textContent;
@@ -65,8 +96,32 @@ operation.forEach(operator => {
             control = 0;
             display.textContent = operator.innerHTML;
             mathOperator = operator.innerHTML;
-        } else {
-            
+
+        } else if (num2 == null || num1 != null) {
+
+            num2 = parseFloat(getNumber());
+            operate(num1, num2);
+
+            display.textContent = operator.innerHTML;
+            mathOperator = operator.innerHTML;
+            display.textContent = result;
+            num1 = result;
+            num2 = null;
+            result = null;
+            control += 1;
+
+        } else if (control > 0 && mathOperator != null) {
+
+            mathOperator = operator.innerHTML;
+            display.textContent = '' + `${value}`;
+            num2 = parseFloat(getNumber());
+            operate(num1, num2);        
+    
+            display.textContent = result;
+            num1 = result;
+            num2 = null;
+            result = null;
+            control += 1;
         }
 
     });
@@ -79,13 +134,12 @@ equal.addEventListener("click", () => {
         num2 = parseFloat(getNumber());
         operate(num1, num2);        
 
+        mathOperator = null;
         display.textContent = result;
         num1 = result;
         num2 = null;
         result = null;
         control += 1;
-        
-        
     };
 });
 
