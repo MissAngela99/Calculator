@@ -69,7 +69,7 @@ backspace.addEventListener("click", () => {
 allClear.addEventListener("click", () => {
     array = [];
     num1 = null;
-    num2 = null;
+    num2 = null;    
     result = null;
     mathOperator = null;
     control = 0;
@@ -107,8 +107,9 @@ operation.forEach(operator => {
             display.textContent = operator.innerHTML;
             mathOperator = operator.innerHTML;
 
-        } else if (num2 == null || num1 != null) {
-
+        } else if (num2 == null || num1 != null && control == 1) {
+            
+            display.textContent = ''
             num2 = parseFloat(getNumber());
             operate(num1, num2);
 
@@ -130,6 +131,8 @@ equal.addEventListener("click", () => {
 
         num2 = parseFloat(getNumber());
         operate(num1, num2);
+
+
 
         mathOperator = null;
         display.textContent = result;
